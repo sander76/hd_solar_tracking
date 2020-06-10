@@ -1,6 +1,9 @@
 from asyncio_mqtt import Client
 from xknx import XKNX
+from argparse import ArgumentParser
 from xknx.devices import Cover
+from tracking import config
+import pydantic_loader
 import asyncio
 import re
 
@@ -67,7 +70,8 @@ class Blind:
             print("cancelled watching task.")
 
     async def handle_message(self):
-        """Hier stop je logica in die inkomende berichten leest en vervolgens jouw knx blind aanstuurt.
+        """Hier stop je logica in die inkomende berichten leest en 
+        vervolgens jouw knx blind aanstuurt.
         """
         print(f"Start watching: {self._topic}")
 
@@ -101,11 +105,11 @@ class Blind:
                 # await self._xknx_cover.open()
 
 
-async def main(xknx_devices):  
+async def start(xknx_devices,blinds_config:"Path",app_config:"config.AppConfig"):  
     
-    xknx = XKNX(config='ccc-blinds.yaml')
+    xknx = XKNX(config=str(blinds_config))
 
-    async with Client("localhost") as client:
+    async with Client(app_config.mqtt_address) as client:
         
         await client.subscribe("building/#")
 
@@ -142,17 +146,25 @@ async def main(xknx_devices):
             for blind in east_blinds + west_blinds + north_blinds + south_blinds:
                 blind.stop_watching()
 
+if __name__ == "__main__":
+    parser = ArgumentParser()
+    parser.add_argument("xknxconfig",help="yaml config files where your blinds are configured.")
+    parser.add_argument("--appconfig",help="App config file.",default=None)
+    args = parser.parse_args()
 
-loop = asyncio.get_event_loop()
+    app_config = pydantic_loader.load_json(config.AppConfig,args.appconfig)
 
-dummy_xknx_devices = {
-    #"shutter_1": DummyXKNX(),
-    #"shutter_2": DummyXKNX(),
-    #"shutter_3": DummyXKNX(),
-    #"shutter_4": DummyXKNX(),
-}
+    xknxconfig= Path(args.xknxconfig)
 
-loop.create_task(main(xknx_devices=dummy_xknx_devices))
-loop.run_forever()
-loop.close()
-print("finished.")
+    loop = asyncio.get_event_loop()
+
+    dummy_xknx_devices = {
+        #"shutter_1": DummyXKNX(),
+        #"shutter_2": DummyXKNX(),
+        #"shutter_3": DummyXKNX(),
+        #"shutter_4": DummyXKNX(),
+    }
+
+    loop.run_until_complete(start(dummy_xknx_devices,blinds_config=xknxconfig ,app_config=app_config))
+    loop.close()
+    print("finished.")

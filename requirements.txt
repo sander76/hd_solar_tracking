@@ -1,2 +1,4 @@
 xknx
 asyncio-mqtt
+pydantic
+pydantic-loader
