@@ -1,53 +1,28 @@
+import asyncio
+import json
+import yaml
+from argparse import ArgumentParser
+from pathlib import Path
+from typing import List, Union
+import pydantic_loader
 from asyncio_mqtt import Client
 from xknx import XKNX
 from xknx.devices import Cover
-import asyncio
-import re
 
-east_blinds  = []
-west_blinds  = []
+import dummy
+import config
+
+east_blinds = []
+west_blinds = []
 north_blinds = []
 south_blinds = []
 
-blind_group = {
-    "oost":  east_blinds,
-    "west":  west_blinds,
-    "noord": north_blinds,
-    "zuid":  south_blinds
-}
 
-
-class DummyXKNX:
-    """Dummy xknx cover device."""
-
-    def __init__(self, id, position = 0, angle = 0):
-        self._id = id
-        self._position = position
-        self._angle = angle
-
-    async def set_up(self):
-        self._position = 0
-        print("%s went up!" % (self._id))
-
-    async def set_down(self):
-        self._position = 100
-        print("%s went down" % (self._id))
-
-    async def set_angle(self, angle):
-        self._angle = angle
-        print("%s angle set to: %d" % (self._id, angle))
-
-    async def set_position(self, position):
-        self._position = position
-        print("%s position set to: %d" % (self._id, position))
-
-
-
-class Blind:
+class BlindGroup:
     """Glue class between XKNX and MQTT."""
 
-    def __init__(self, xknx_cover, topic, client: Client):
-        self._xknx_cover = xknx_cover
+    def __init__(self, topic, client: Client):
+        self.shades=[]
         self._topic = topic
         self._client = client
         self._watch_task = None
@@ -56,7 +31,6 @@ class Blind:
         # print("Blind constructor called")
 
     def start_watching(self):
-
         loop = asyncio.get_running_loop()
         self._watch_task = loop.create_task(self.handle_message())
 
@@ -67,92 +41,86 @@ class Blind:
             print("cancelled watching task.")
 
     async def handle_message(self):
-        """Hier stop je logica in die inkomende berichten leest en vervolgens jouw knx blind aanstuurt.
+        """Hier stop je logica in die inkomende berichten leest en 
+        vervolgens jouw knx blind aanstuurt.
         """
         print(f"Start watching: {self._topic}")
 
         async with self._client.filtered_messages(self._topic) as messages:
             async for message in messages:
-                cmd = message.payload.decode()
-                print(f"{cmd}")
-                p = re.compile(r'(\d+):(\d+)')
-                m = p.match(cmd)
-                pos = int(m.group(1))
-                ang = int(m.group(2))
-                if ang != self._angle:
-                    print("ang %d prev_ang %d" % (ang, self._angle))
-                    self._angle = ang
-                else:
-                    print("same angle")
-
-                print("pos %d ang %d" % (pos, ang))
-                print("topic: %s" % (self._topic))
-                p = re.compile(r'building/(\w+)gevel')
-                m = p.match(self._topic)
-                gevel = m.group(1)
-                print("gevel: %s" % (gevel))
-                # await asyncio.gather(*[blind._xknx_cover.set_angle(ang) for blind in blind_group[gevel]])
-                await self._xknx_cover.set_angle(ang)
-
-                
-                print(
-                    f'[topic_filter="{self._topic}"]: {cmd}'
-                )
-                # await self._xknx_cover.open()
+                cmd = message.payload.decode("utf-8")
+                data = json.loads(message.payload.decode("utf-8"))
+                print(f"incoming data on {message.topic}")
+                print(data)
 
 
-async def main(xknx_devices):  
-    
-    xknx = XKNX(config='ccc-blinds.yaml')
+def grouping(xknx:Union[XKNX,dummy.DummyXKNX],client)->List[BlindGroup]:
+    group_north = BlindGroup("building/noordgevel",client)
+    group_east = BlindGroup("building/oostgevel",client)
+    group_south=BlindGroup("building/zuidgevel",client)
+    group_west = BlindGroup("building/westgevel",client)
 
-    async with Client("localhost") as client:
-        
+
+    for device in xknx.devices.values():
+        if "East" in device.name:
+            group_east.shades.append(device)
+        elif "West" in device.name:
+            group_west.shades.append(device)
+        elif "South" in device.name:
+            group_south.shades.append(device)
+        elif "North" in device.name:
+            group_north.shades.append(device)
+
+    return group_north,group_east,group_south,group_west
+
+
+
+async def start(
+    xknx: Union[XKNX, dummy.DummyXKNX],
+    blinds_config: "Path",
+    app_config: "config.AppConfig",
+):
+    """Start."""
+
+    async with Client(app_config.mqtt_address) as client:
+
         await client.subscribe("building/#")
 
-        for device in xknx.devices:
+        blind_groups = grouping(xknx,client)
 
-            xknx_devices[device.name] = DummyXKNX(device.name, 0, 0)
-            if "East" in device.name:
-                east_blinds.append(
-                    Blind(xknx_devices[device.name], "building/oostgevel", client)
-                )
-            elif "South" in device.name:
-                south_blinds.append(
-                    Blind(xknx_devices[device.name], "building/zuidgevel", client)
-                )
-            elif "West" in device.name:
-                west_blinds.append(
-                    Blind(xknx_devices[device.name], "building/westgevel", client)
-                )
-            elif "North" in device.name:
-                north_blinds.append(
-                    Blind(xknx_devices[device.name], "building/noordgevel", client)
-                )
-            else:
-                print("Invalid orientation in device.name!")
-
-            
-        
-        for blind in east_blinds + west_blinds + north_blinds + south_blinds:
-            blind.start_watching()
+        for blind_group in blind_groups:
+            blind_group.start_watching()
         try:
             while True:
                 await asyncio.sleep(1)
         except KeyboardInterrupt:
-            for blind in east_blinds + west_blinds + north_blinds + south_blinds:
+            for blind in blind_groups:
                 blind.stop_watching()
 
 
-loop = asyncio.get_event_loop()
+if __name__ == "__main__":
+    loop = asyncio.get_event_loop()
 
-dummy_xknx_devices = {
-    #"shutter_1": DummyXKNX(),
-    #"shutter_2": DummyXKNX(),
-    #"shutter_3": DummyXKNX(),
-    #"shutter_4": DummyXKNX(),
-}
+    parser = ArgumentParser()
+    parser.add_argument(
+        "xknxconfig", help="yaml config files where your blinds are configured."
+    )
+    parser.add_argument("--appconfig", help="App config file.", default=None)
+    parser.add_argument("--demo",help="Run the app in demo mode",action="store_true")
+    args = parser.parse_args()
 
-loop.create_task(main(xknx_devices=dummy_xknx_devices))
-loop.run_forever()
-loop.close()
-print("finished.")
+    app_config = pydantic_loader.load_json(config.AppConfig, args.appconfig)
+
+    xknxconfig = Path(args.xknxconfig)
+
+    if args.demo:
+        xknx = dummy.DummyXKNX(config=str(xknxconfig))
+    else:
+        xknx = XKNX(config=str(xknxconfig))    
+    
+
+    loop.run_until_complete(
+        start(xknx, blinds_config=xknxconfig, app_config=app_config)
+    )
+    loop.close()
+    print("finished.")
