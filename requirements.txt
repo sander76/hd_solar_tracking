@@ -2,3 +2,4 @@ xknx
 asyncio-mqtt
 pydantic
 pydantic-loader
+black
