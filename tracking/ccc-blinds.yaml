@@ -1,0 +1,390 @@
+general:
+    own_address: '15.15.249' # adjust
+connection:
+    auto:
+groups:
+    cover:
+      East.blind_1 : {
+        group_address_long: '0/0/2',
+        group_address_short: '0/0/4',
+        group_address_position: '0/0/5',
+        group_address_angle: '0/0/6',
+        group_address_position_state: '0/0/16',
+        group_address_angle_state: '0/0/17',
+        travel_time_down: 50,
+        travel_time_up: 60,
+        invert_position: False,
+        invert_angle: True
+      }
+      East.blind_2 : {
+        group_address_long: '0/0/30',
+        group_address_short: '0/0/32',
+        group_address_position: '0/0/33',
+        group_address_angle: '0/0/34',
+        group_address_position_state: '0/0/44',
+        group_address_angle_state: '0/0/45',
+        travel_time_down: 50,
+        travel_time_up: 60,
+        invert_position: False,
+        invert_angle: True
+      }
+      East.blind_3 : {
+        group_address_long: '0/0/58',
+        group_address_short: '0/0/60',
+        group_address_position: '0/0/61',
+        group_address_angle: '0/0/62',
+        group_address_position_state: '0/0/72',
+        group_address_angle_state: '0/0/73',
+        travel_time_down: 50,
+        travel_time_up: 60,
+        invert_position: False,
+        invert_angle: True
+      }
+      East.blind_4 : {
+        group_address_long: '0/0/86',
+        group_address_short: '0/0/88',
+        group_address_position: '0/0/89',
+        group_address_angle: '0/0/90',
+        group_address_position_state: '0/0/100',
+        group_address_angle_state: '0/0/101',
+        travel_time_down: 50,
+        travel_time_up: 60,
+        invert_position: False,
+        invert_angle: True
+      }
+      East.blind_5 : {
+        group_address_long: '0/0/114',
+        group_address_short: '0/0/116',
+        group_address_position: '0/0/117',
+        group_address_angle: '0/0/118',
+        group_address_position_state: '0/0/128',
+        group_address_angle_state: '0/0/129',
+        travel_time_down: 50,
+        travel_time_up: 60,
+        invert_position: False,
+        invert_angle: True
+      }
+      East.blind_6 : {
+        group_address_long: '0/0/142',
+        group_address_short: '0/0/144',
+        group_address_position: '0/0/145',
+        group_address_angle: '0/0/146',
+        group_address_position_state: '0/0/156',
+        group_address_angle_state: '0/0/157',
+        travel_time_down: 50,
+        travel_time_up: 60,
+        invert_position: False,
+        invert_angle: True
+      }
+      East.blind_7 : {
+        group_address_long: '0/0/170',
+        group_address_short: '0/0/172',
+        group_address_position: '0/0/173',
+        group_address_angle: '0/0/174',
+        group_address_position_state: '0/0/184',
+        group_address_angle_state: '0/0/185',
+        travel_time_down: 50,
+        travel_time_up: 60,
+        invert_position: False,
+        invert_angle: True
+      }
+      East.blind_8 : {
+        group_address_long: '0/0/198',
+        group_address_short: '0/0/200',
+        group_address_position: '0/0/201',
+        group_address_angle: '0/0/202',
+        group_address_position_state: '0/0/212',
+        group_address_angle_state: '0/0/213',
+        travel_time_down: 50,
+        travel_time_up: 60,
+        invert_position: False,
+        invert_angle: True
+      }
+      East.blind_9 : {
+        group_address_long: '0/0/226',
+        group_address_short: '0/0/228',
+        group_address_position: '0/0/229',
+        group_address_angle: '0/0/230',
+        group_address_position_state: '0/0/240',
+        group_address_angle_state: '0/0/241',
+        travel_time_down: 50,
+        travel_time_up: 60,
+        invert_position: False,
+        invert_angle: True
+      }
+      South.blind_10 : {
+        group_address_long: '0/1/2',
+        group_address_short: '0/1/4',
+        group_address_position: '0/1/5',
+        group_address_angle: '0/1/6',
+        group_address_position_state: '0/1/16',
+        group_address_angle_state: '0/1/17',
+        travel_time_down: 50,
+        travel_time_up: 60,
+        invert_position: False,
+        invert_angle: True
+      }
+      South.blind_11 : {
+        group_address_long: '0/1/30',
+        group_address_short: '0/1/32',
+        group_address_position: '0/1/33',
+        group_address_angle: '0/1/34',
+        group_address_position_state: '0/1/44',
+        group_address_angle_state: '0/1/45',
+        travel_time_down: 50,
+        travel_time_up: 60,
+        invert_position: False,
+        invert_angle: True
+      }
+      South.blind_12 : {
+        group_address_long: '0/1/58',
+        group_address_short: '0/1/60',
+        group_address_position: '0/1/61',
+        group_address_angle: '0/1/62',
+        group_address_position_state: '0/1/72',
+        group_address_angle_state: '0/1/73',
+        travel_time_down: 50,
+        travel_time_up: 60,
+        invert_position: False,
+        invert_angle: True
+      }
+      South.blind_13 : {
+        group_address_long: '0/1/86',
+        group_address_short: '0/1/88',
+        group_address_position: '0/1/89',
+        group_address_angle: '0/1/90',
+        group_address_position_state: '0/1/100',
+        group_address_angle_state: '0/1/101',
+        travel_time_down: 50,
+        travel_time_up: 60,
+        invert_position: False,
+        invert_angle: True
+      }
+      South.blind_14 : {
+        group_address_long: '0/1/114',
+        group_address_short: '0/1/116',
+        group_address_position: '0/1/117',
+        group_address_angle: '0/1/118',
+        group_address_position_state: '0/1/128',
+        group_address_angle_state: '0/1/129',
+        travel_time_down: 50,
+        travel_time_up: 60,
+        invert_position: False,
+        invert_angle: True
+      }
+      South.blind_15 : {
+        group_address_long: '0/1/142',
+        group_address_short: '0/1/144',
+        group_address_position: '0/1/145',
+        group_address_angle: '0/1/146',
+        group_address_position_state: '0/1/156',
+        group_address_angle_state: '0/1/157',
+        travel_time_down: 50,
+        travel_time_up: 60,
+        invert_position: False,
+        invert_angle: True
+      }
+      West.blind_16 : {
+        group_address_long: '0/2/30',
+        group_address_short: '0/2/32',
+        group_address_position: '0/2/33',
+        group_address_angle: '0/2/34',
+        group_address_position_state: '0/2/44',
+        group_address_angle_state: '0/2/45',
+        travel_time_down: 50,
+        travel_time_up: 60,
+        invert_position: False,
+        invert_angle: True
+      }
+      West.blind_17 : {
+        group_address_long: '0/2/2',
+        group_address_short: '0/2/4',
+        group_address_position: '0/2/5',
+        group_address_angle: '0/2/6',
+        group_address_position_state: '0/2/16',
+        group_address_angle_state: '0/2/17',
+        travel_time_down: 50,
+        travel_time_up: 60,
+        invert_position: False,
+        invert_angle: True
+      }
+      West.blind_18 : {
+        group_address_long: '0/2/58',
+        group_address_short: '0/2/60',
+        group_address_position: '0/2/61',
+        group_address_angle: '0/2/62',
+        group_address_position_state: '0/2/72',
+        group_address_angle_state: '0/2/73',
+        travel_time_down: 50,
+        travel_time_up: 60,
+        invert_position: False,
+        invert_angle: True
+      }
+      West.blind_19 : {
+        group_address_long: '0/2/86',
+        group_address_short: '0/2/88',
+        group_address_position: '0/2/89',
+        group_address_angle: '0/2/90',
+        group_address_position_state: '0/2/100',
+        group_address_angle_state: '0/2/101',
+        travel_time_down: 50,
+        travel_time_up: 60,
+        invert_position: False,
+        invert_angle: True
+      }
+      West.blind_20 : {
+        group_address_long: '0/2/114',
+        group_address_short: '0/2/116',
+        group_address_position: '0/2/117',
+        group_address_angle: '0/2/118',
+        group_address_position_state: '0/2/128',
+        group_address_angle_state: '0/2/129',
+        travel_time_down: 50,
+        travel_time_up: 60,
+        invert_position: False,
+        invert_angle: True
+      }
+      West.blind_21 : {
+        group_address_long: '0/2/142',
+        group_address_short: '0/2/144',
+        group_address_position: '0/2/145',
+        group_address_angle: '0/2/146',
+        group_address_position_state: '0/2/156',
+        group_address_angle_state: '0/2/157',
+        travel_time_down: 50,
+        travel_time_up: 60,
+        invert_position: False,
+        invert_angle: True
+      }
+      West.blind_22 : {
+        group_address_long: '0/3/2',
+        group_address_short: '0/3/4',
+        group_address_position: '0/3/5',
+        group_address_angle: '0/3/6',
+        group_address_position_state: '0/3/16',
+        group_address_angle_state: '0/3/17',
+        travel_time_down: 50,
+        travel_time_up: 60,
+        invert_position: False,
+        invert_angle: True
+      }
+      West.blind_23 : {
+        group_address_long: '0/3/30',
+        group_address_short: '0/3/32',
+        group_address_position: '0/3/33',
+        group_address_angle: '0/3/34',
+        group_address_position_state: '0/3/44',
+        group_address_angle_state: '0/3/45',
+        travel_time_down: 50,
+        travel_time_up: 60,
+        invert_position: False,
+        invert_angle: True
+      }
+      West.blind_24 : {
+        group_address_long: '0/3/58',
+        group_address_short: '0/3/60',
+        group_address_position: '0/3/61',
+        group_address_angle: '0/3/62',
+        group_address_position_state: '0/3/72',
+        group_address_angle_state: '0/3/73',
+        travel_time_down: 50,
+        travel_time_up: 60,
+        invert_position: False,
+        invert_angle: True
+      }
+      West.blind_25 : {
+        group_address_long: '0/3/86',
+        group_address_short: '0/3/88',
+        group_address_position: '0/3/89',
+        group_address_angle: '0/3/90',
+        group_address_position_state: '0/3/100',
+        group_address_angle_state: '0/3/101',
+        travel_time_down: 50,
+        travel_time_up: 60,
+        invert_position: False,
+        invert_angle: True
+      }
+      West.blind_26 : {
+        group_address_long: '0/3/114',
+        group_address_short: '0/3/116',
+        group_address_position: '0/3/117',
+        group_address_angle: '0/3/118',
+        group_address_position_state: '0/3/128',
+        group_address_angle_state: '0/3/129',
+        travel_time_down: 50,
+        travel_time_up: 60,
+        invert_position: False,
+        invert_angle: True
+      }
+      North.blind_27 : {
+        group_address_long: '0/4/2',
+        group_address_short: '0/4/4',
+        group_address_position: '0/4/5',
+        group_address_angle: '0/4/6',
+        group_address_position_state: '0/4/16',
+        group_address_angle_state: '0/4/17',
+        travel_time_down: 50,
+        travel_time_up: 60,
+        invert_position: False,
+        invert_angle: True
+      }
+      North.blind_28 : {
+        group_address_long: '0/4/30',
+        group_address_short: '0/4/32',
+        group_address_position: '0/4/33',
+        group_address_angle: '0/4/34',
+        group_address_position_state: '0/4/44',
+        group_address_angle_state: '0/4/45',
+        travel_time_down: 50,
+        travel_time_up: 60,
+        invert_position: False,
+        invert_angle: True
+      }
+      North.blind_29 : {
+        group_address_long: '0/4/58',
+        group_address_short: '0/4/60',
+        group_address_position: '0/4/61',
+        group_address_angle: '0/4/62',
+        group_address_position_state: '0/4/72',
+        group_address_angle_state: '0/4/73',
+        travel_time_down: 50,
+        travel_time_up: 60,
+        invert_position: False,
+        invert_angle: True
+      }
+      North.blind_30 : {
+        group_address_long: '0/4/86',
+        group_address_short: '0/4/88',
+        group_address_position: '0/4/89',
+        group_address_angle: '0/4/90',
+        group_address_position_state: '0/4/100',
+        group_address_angle_state: '0/4/101',
+        travel_time_down: 50,
+        travel_time_up: 60,
+        invert_position: False,
+        invert_angle: True
+      }
+      North.blind_31 : {
+        group_address_long: '0/4/114',
+        group_address_short: '0/4/116',
+        group_address_position: '0/4/117',
+        group_address_angle: '0/4/118',
+        group_address_position_state: '0/4/128',
+        group_address_angle_state: '0/4/129',
+        travel_time_down: 50,
+        travel_time_up: 60,
+        invert_position: False,
+        invert_angle: True
+      }
+      North.blind_32 : {
+        group_address_long: '0/4/142',
+        group_address_short: '0/4/144',
+        group_address_position: '0/4/145',
+        group_address_angle: '0/4/146',
+        group_address_position_state: '0/4/156',
+        group_address_angle_state: '0/4/157',
+        travel_time_down: 50,
+        travel_time_up: 60,
+        invert_position: False,
+        invert_angle: True
+      }
