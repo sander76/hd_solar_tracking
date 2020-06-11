@@ -2,21 +2,21 @@ import yaml
 
 
 class DummyXKNX:
-    def __init__(self,config):
+    def __init__(self, config):
         with open(config) as file:
             yml = yaml.load(file.read())
 
         self.config = yml
-        self.devices={}
-        for name,device in self.config['groups']['cover'].items():
-            self.devices[name]=DummyXknxBlind(name,device)
+        self.devices = {}
+        for name, device in self.config["groups"]["cover"].items():
+            self.devices[name] = DummyCover(name, device)
 
 
-class DummyXknxBlind:
+class DummyCover:
     """Dummy xknx cover device."""
 
-    def __init__(self,name, *args,**kwargs):
-        self.name=name
+    def __init__(self, name, *args, **kwargs):
+        self.name = name
 
     async def set_up(self):
         self._position = 0
